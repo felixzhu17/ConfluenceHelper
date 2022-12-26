@@ -3,3 +3,4 @@ test_env
 build
 confluence_generator.egg-info
 dist
+.ipynb
