@@ -3,10 +3,10 @@ import base64
 import requests
 from jinja2 import Template
 import logging
-import json
+from .process import process_confluence_template_args
 
 
-class ConfluenceGenerator(Confluence): 
+class ConfluenceGenerator(Confluence):
     def __init__(self, base_url, username, api_token):
         self.base_url = base_url
         self.username = username
@@ -18,7 +18,7 @@ class ConfluenceGenerator(Confluence):
             password=self.api_token,
             cloud=True,
         )
-        
+
     def create_or_update_page(
         self,
         title: str,
@@ -69,17 +69,15 @@ class ConfluenceGenerator(Confluence):
             )
             page_id = result["id"]
 
-        self.attach_plotly_plots(page_id=page_id, space=space, title=title)
-
         print(
             f"Your Confluence page has been uploaded at {self.base_url}/wiki/spaces/{result['space']['key']}/pages/{result['id']}"
         )
         return
 
     def get_page_body(self, page_id):
-        auth = self.confluence_username + ":" + self.confluence_api_token
+        auth = self.username + ":" + self.api_token
         encoded_auth = base64.b64encode(auth.encode()).decode()
-        url = f"https://hello.atlassian.net/wiki/rest/api/content/{page_id}"
+        url = f"{self.base_url}/wiki/rest/api/content/{page_id}"
         headers = {
             "Accept": "application/json",
             "Authorization": f"Basic {encoded_auth}",
@@ -88,3 +86,28 @@ class ConfluenceGenerator(Confluence):
             url, headers=headers, params={"expand": ["body.storage"]}
         ).json()
         return response["body"]["storage"]["value"]
+
+    def update_confluence_template(self, title, page_id, **kwargs):
+
+        kwargs, image_list = process_confluence_template_args(kwargs)
+        upload_xml = Template(self.get_page_body(page_id)).render(**kwargs)
+        result = self.update_page(
+            title=title,
+            page_id=page_id,
+            body=upload_xml,
+            representation="storage",
+        )
+
+        for fig_name, fig in image_list:
+            self.attach_file(
+                fig,
+                name=fig_name,
+                page_id=page_id,
+                space=result["space"]["key"],
+                title=title,
+            )
+
+        print(
+            f"Your Confluence page has been uploaded at {self.base_url}/wiki/spaces/{result['space']['key']}/pages/{result['id']}"
+        )
+        return
