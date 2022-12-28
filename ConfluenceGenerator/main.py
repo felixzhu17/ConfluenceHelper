@@ -111,7 +111,7 @@ class ConfluenceGenerator(Confluence):
             self.attach_content(
                 fig,
                 name=fig_name,
-                page_id=page_id,
+                page_id=result["id"],
                 space=result["space"]["key"],
                 title=title,
             )
