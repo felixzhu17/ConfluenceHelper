@@ -1,4 +1,4 @@
-from .utils import *
+from ..utils import *
 
 
 def _process_xml_visual_input(visual_input, row_length):
