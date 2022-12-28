@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="confluence-generator",
-    version="0.0.01",
+    version="0.0.1",
     license="MIT",
     author="Felix Zhu",
     author_email="zhu.felix@outlook.com",
@@ -14,5 +14,5 @@ setup(
     packages=find_packages(),
     setup_requires=["setuptools_scm"],
     url="https://github.com/felixzhu17/ConfluenceGenerator",
-    install_requires=[],
+    install_requires=["atlassian-python-api", "requests", "jinja2", "pandas", "plotly"],
 )

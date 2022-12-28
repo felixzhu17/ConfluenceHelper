@@ -1,6 +1,5 @@
 atlassian-python-api
 requests
 jinja2
-loguru
 pandas
 plotly
