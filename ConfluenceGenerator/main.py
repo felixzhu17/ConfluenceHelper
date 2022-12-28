@@ -108,7 +108,7 @@ class ConfluenceGenerator(Confluence):
         )
 
         for fig_name, fig in image_list:
-            self.attach_file(
+            self.attach_content(
                 fig,
                 name=fig_name,
                 page_id=page_id,
