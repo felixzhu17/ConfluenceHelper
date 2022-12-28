@@ -3,3 +3,4 @@ requests
 jinja2
 pandas
 plotly
+kaleido

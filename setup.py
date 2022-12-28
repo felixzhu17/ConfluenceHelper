@@ -14,5 +14,12 @@ setup(
     packages=find_packages(),
     setup_requires=["setuptools_scm"],
     url="https://github.com/felixzhu17/ConfluenceGenerator",
-    install_requires=["atlassian-python-api", "requests", "jinja2", "pandas", "plotly"],
+    install_requires=[
+        "atlassian-python-api",
+        "requests",
+        "jinja2",
+        "pandas",
+        "plotly",
+        "kaleido",
+    ],
 )
