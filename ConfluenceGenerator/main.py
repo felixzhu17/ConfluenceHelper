@@ -91,9 +91,9 @@ class ConfluenceGenerator(Confluence):
 
         kwargs, image_list = process_confluence_template_args(kwargs)
         upload_xml = Template(self.get_page_body(page_id)).render(**kwargs)
-        result = self.update_page(
+        result = self.create_or_update_page(
             title=title,
-            page_id=page_id,
+            parent_id=page_id,
             body=upload_xml,
             representation="storage",
         )
