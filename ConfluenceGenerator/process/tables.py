@@ -112,5 +112,7 @@ def process_xml_pandas(df):
     values_list = df.values.tolist()
     value_matrix = [list(df.columns)] + values_list
     cell_colour_matrix = [COLOUR.blue] + len(values_list) * [COLOUR.white]
+    text_colour_matrix = [COLOUR.white] + len(values_list) * [COLOUR.black]
+    bold_matrix = [True] + len(values_list) * [False]
 
     return create_xml_table(value_matrix, cell_colour_matrix)

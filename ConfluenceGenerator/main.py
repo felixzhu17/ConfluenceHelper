@@ -26,6 +26,7 @@ class ConfluenceGenerator(Confluence):
         body: str,
         overwrite: bool = False,
         representation="storage",
+        _return_result=False,
     ):
         """Create or update a Confluence page as the experiment report
 
@@ -73,7 +74,12 @@ class ConfluenceGenerator(Confluence):
         print(
             f"Your Confluence page has been uploaded at {self.base_url}/wiki/spaces/{result['space']['key']}/pages/{result['id']}"
         )
-        return
+
+        if _return_result:
+            return result
+
+        else:
+            return
 
     def get_page_body(self, page_id):
         auth = self.username + ":" + self.api_token
@@ -97,6 +103,7 @@ class ConfluenceGenerator(Confluence):
             parent_id=page_id,
             body=upload_xml,
             representation="storage",
+            _return_result=True,
         )
 
         for fig_name, fig in image_list:
@@ -108,7 +115,4 @@ class ConfluenceGenerator(Confluence):
                 title=title,
             )
 
-        print(
-            f"Your Confluence page has been uploaded at {self.base_url}/wiki/spaces/{result['space']['key']}/pages/{result['id']}"
-        )
         return
