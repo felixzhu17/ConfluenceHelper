@@ -11,9 +11,9 @@ def process_confluence_template_args(kwargs):
         if isinstance(v, pd.DataFrame):
             modified_kwargs[k] = process_xml_pandas(v)
         elif isinstance(v, BasePlotlyType):
-            image, item = process_plotly_xml(v, k)
-            modified_kwargs[k] = item
-            image_list.append(image)
+            item = process_plotly_xml(v, k)
+            modified_kwargs[k] = item["xml"]
+            image_list.append(item["image"])
         else:
             modified_kwargs[k] = v
     return modified_kwargs, image_list
