@@ -115,4 +115,6 @@ def process_xml_pandas(df):
     text_colour_matrix = [COLOUR.white] + len(values_list) * [COLOUR.black]
     bold_matrix = [True] + len(values_list) * [False]
 
-    return create_xml_table(value_matrix, cell_colour_matrix)
+    return create_xml_table(
+        value_matrix, cell_colour_matrix, text_colour_matrix, bold_matrix
+    )
