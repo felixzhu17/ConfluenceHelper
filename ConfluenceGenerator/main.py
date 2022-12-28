@@ -94,7 +94,7 @@ class ConfluenceGenerator(Confluence):
         ).json()
         return response["body"]["storage"]["value"]
 
-    def update_confluence_template(self, title, page_id, **kwargs):
+    def update_confluence_template(self, title, page_id, overwrite=False, **kwargs):
 
         kwargs, image_list = process_confluence_template_args(kwargs)
         upload_xml = Template(self.get_page_body(page_id)).render(**kwargs)
@@ -103,6 +103,7 @@ class ConfluenceGenerator(Confluence):
             parent_id=page_id,
             body=upload_xml,
             representation="storage",
+            overwrite=overwrite,
             _return_result=True,
         )
 
