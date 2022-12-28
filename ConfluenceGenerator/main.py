@@ -23,6 +23,7 @@ class ConfluenceGenerator(Confluence):
         self,
         title: str,
         parent_id: str,
+        body: str,
         overwrite: bool = False,
         representation="storage",
     ):
@@ -54,7 +55,7 @@ class ConfluenceGenerator(Confluence):
                 parent_id=parent_id,
                 page_id=page_id,
                 title=title,
-                body=self.xml,
+                body=body,
                 representation=representation,
             )
 
@@ -63,7 +64,7 @@ class ConfluenceGenerator(Confluence):
                 space=space,
                 parent_id=parent_id,
                 title=title,
-                body=self.xml,
+                body=body,
                 representation=representation,
                 editor="v2",
             )
